@@ -143,6 +143,7 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 	public void selectSalesOrgAndDistChannelAndDivision(String salesorg, String distchannel, String division) {
 		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_salesorg_dd, salesorg);
 		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_distchnl_dd, distchannel);
+		waitFor(2);
 		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_division_dd, division);
 	}
 
