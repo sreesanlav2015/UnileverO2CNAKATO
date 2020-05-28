@@ -78,6 +78,7 @@ public class LogoutPage extends CustomerServ implements LogoutPageLoc  {
 	
 	public boolean verifyUsernameField_IsDisplayed() {
 		try {
+	        waitFor(2);
 			Assert.assertTrue(driver.findElement(By.xpath(username_xpath)).isDisplayed(),"Logout is not successful");
 			//System.out.println("verify UsernameField_IsDisplayed method" + driver);
 			return true;

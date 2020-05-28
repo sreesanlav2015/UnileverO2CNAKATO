@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.prefs.Preferences;
+import org.openqa.selenium.JavascriptExecutor;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -49,6 +50,7 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 
 	public void verifyResult(String expectedresult) throws Exception {
 		String acustno = xpath_Genericmethod_getElementText(xpath_custno_element);
+		//String acustno = xpath_Genericmethod_getElementText(xpath_gcno_element);
 		System.out.println(acustno);
 		if (expectedresult.equalsIgnoreCase(acustno)) {
 			System.out.println("Both are same");
@@ -56,6 +58,10 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 		boolean b = xpath_Genericmethod_VerifyTextEquals(
 				"//tbody/tr[@id='$PpySearchResults$ppxResults$l1']/td/div/span[text()='" + expectedresult + "']",
 				expectedresult);
+		
+//		boolean c = xpath_Genericmethod_VerifyTextEquals(
+//				"//tbody/tr[@id='$PD_SearchResultsFor_pa73090759419362pz$ppxResults$l1']/td/div/span[text()='" + expectedresult + "']",
+//				expectedresult);
 		Assert.assertTrue(b, "Expected result :" + expectedresult + "is not same as actual result");
 	}
 
@@ -140,10 +146,12 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_division_dd, division);
 	}
 
-	public void clickOnSaveButton() throws Exception {
+	public void clickOnSaveButtonKato() throws Exception {
+		
 		waitFor(3);
-		xpath_GenericMethod_Click(xpath_save_btn);
+		xpath_GenericMethod_Click(xpath_save_btn_kato);
 		waitFor(2);
+
 		try {
 			driver.switchTo().alert().accept();
 		} catch (Exception e) {
@@ -151,13 +159,28 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 		}
 		// waitFor(2);
 	}
+	
+public void clickOnSaveButtonNA() throws Exception {
+		
+		waitFor(3);
+		xpath_GenericMethod_Click(xpath_save_btn_na);
+		waitFor(2);
+
+		try {
+			driver.switchTo().alert().accept();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		// waitFor(2);
+	}
+	
 
 	public void verifyGenericCaseCreated() throws Exception {
 		waitFor(3);
 		boolean caseid = xpath_Genericmethod_verifyElementPresent(xpath_genericcase_id);
 		String caseid_value = xpath_Genericmethod_getElementText(xpath_genericcase_id);
 		System.out.println("Case Id Value is: "+caseid_value);
-		actualcaseid_value = caseid_value.substring(1, 8);
+		actualcaseid_value = caseid_value.substring(1, 9);
 		saveCaseIdPreference(actualcaseid_value);
 		System.out.println(actualcaseid_value);
 		Reporter.log("Case Id Generated is :" + actualcaseid_value);
@@ -184,7 +207,10 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 		System.out.println("In verifyExpectedResolutionTime");
 	}
 	public void clickOnEditButton() throws Exception {
+		//driver.navigate().refresh();
+		//waitFor(3);
 		xpath_GenericMethod_Click(xpath_edit_btn);
+		waitFor(3);
 	}
 
 	public void clickOnEditButtonFromMyCasesOrMyWB() throws Exception {
@@ -197,6 +223,10 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 	}
 
 	public void clickOnOtherActionsButton() throws Exception {
+		
+//		WebElement claimindicator = driver.findElement(By.xpath(xpath_otheractions_btn));
+//		JavascriptExecutor js = null;
+//		js.executeScript("arguments[0].click();", claimindicator);
 		xpath_GenericMethod_Click(xpath_otheractions_btn);
 	}
 
@@ -230,16 +260,27 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 	}
 
 	public void clickOnFollowCasesTab() throws Exception {
+		waitFor(2);
 		xpath_GenericMethod_Click(xpath_followedcases_header);
 	}
 
 	public void clickOnFilterIconOnCaseIDColumn() throws Exception {
 		xpath_GenericMethod_Click(xpath_filtercaseid_followedcase);
+		waitFor(3);
+		//xpath_GenericMethod_Click(xpath_filetercaseid_mywb);
+		//xpath_GenericMethod_Click(xpath_filtercasaeid_mycaseid);
+		//xpath_GenericMethod_Click(xpath_filtercaseid_nacaseid);
 	}
+	
+	
 
 	public void enterCaseIDIntoTextBox() throws Exception {
 		String stored_caseid = getCaseIdPreference();
-		xpath_GenericMethod_Sendkeys(xpath_searchtextinfiltercaseid, stored_caseid);
+		waitFor(3);
+		//xpath_GenericMethod_Sendkeys(xpath_searchtextinfilterwb, stored_caseid);
+		//xpath_GenericMethod_Sendkeys(xpath_searchtextinfiltermycaseid, stored_caseid);
+		//xpath_GenericMethod_Sendkeys(xpath_searchtextinfilternamycaseidid, stored_caseid);
+		xpath_GenericMethod_Sendkeys(xpath_searchtextinfilterfollowedcase, stored_caseid);	
 	}
 
 	public void clickOnApplyButton() throws Exception {
@@ -248,6 +289,97 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 
 	public void verifyCaseId() throws Exception {
 		clickOnCaseIDFromFollowedCases();
+	}
+	
+	public void clickOnFilterIconOnCaseIDColumInFollowedcases() throws Exception{
+		xpath_GenericMethod_Click(xpath_filtercaseid_followedcase);
+		waitFor(3);
+	}
+	
+	public void enterCaseIDIntoTextBoxInFollowedCases() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		waitFor(3);
+		xpath_GenericMethod_Sendkeys(xpath_searchtextinfilterfollowedcase, stored_caseid);
+	}
+	
+	public void verifyCaseIdInFollowedCases() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		System.out.println("Stored Case id is: " + stored_caseid);
+		xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_MyFollowed_caseid, xpathend_MyFollowed_caseid,
+				2);
+	}
+	
+	public void clickOnFilterIconOnCaseIDColumInMyCases() throws Exception{
+		waitFor(2);
+		xpath_GenericMethod_Click(xpath_filtercasaeid_mycaseid);
+	}
+	
+	public void enterCaseIDIntoTextBoxInMyCases() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		waitFor(2);
+		xpath_GenericMethod_Sendkeys(xpath_searchtextinfiltermycaseid, stored_caseid);
+	}
+	
+	public void verifyCaseIdInMyCases() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		System.out.println("Stored Case id is: " + stored_caseid);
+		xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_mycases_caseid, xpathend_mycases_caseid,
+			2);
+	}
+	
+	
+	public void clickOnFilterIconOnCaseIDColumInWorbasketCases() throws Exception{
+		xpath_GenericMethod_Click(xpath_filetercaseid_mywb);
+	}
+	
+	public void enterCaseIDIntoTextBoxInWorkbasketCases() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		waitFor(3);
+		xpath_GenericMethod_Sendkeys(xpath_searchtextinfilterwb, stored_caseid);
+	}
+	
+	public void verifyCaseIdInWorkbasketCases() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		System.out.println("Stored Case id is: " + stored_caseid);
+		xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_mywb_caseid, xpathend_mywb_caseid,
+		2);
+	}
+	
+	
+	public void clickOnFilterIconOnCaseIdColumnInWorkbasketCasesNA() throws Exception{
+		waitFor(3);
+		xpath_GenericMethod_Click(xpath_filtercaseid_namywbid);
+	}
+	
+	public void enterCaseIdIntoTheCaseTextTextboxInWorkbasketCasesNA() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		waitFor(3);
+		xpath_GenericMethod_Sendkeys(xpath_searchtextinfilterwbna, stored_caseid);
+	}
+	
+	public void verifyTheCaseIdInWorkbasketCasesNA() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		System.out.println("Stored Case id is: " + stored_caseid);
+		xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_mywbna_caseid, xpathend_mywbna_caseid,
+		2);
+	}
+	
+	public void clickOnFilterIconOnCaseIDColumnInMyCasesNA() throws Exception{
+		waitFor(3);
+		xpath_GenericMethod_Click(xpath_filtercaseid_nacaseid);
+	}
+	
+	public void enterCaseIdIntoTheCaseTextTextboxInMyCasesNA() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		waitFor(3);
+		xpath_GenericMethod_Sendkeys(xpath_searchtextinfilternamycaseid, stored_caseid);
+	}
+	
+	public void verifyTheCaseIdInMyCasesNA() throws Exception{
+		String stored_caseid = getCaseIdPreference();
+		System.out.println("Stored Case id is: " + stored_caseid);
+		xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_namycases_caseid, xpathend_namycases_caseid,
+		2);
 	}
 
 	public void clickOnCustomerSearchIcon() throws Exception {
@@ -270,17 +402,44 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 		xpath_GenericMethod_Click(xpath_mywork_icon_link);
 
 	}
+	
+	public void clickOnMyWorkIconNA() throws Exception{
+		try {
+			waitFor(3);
+			xpath_GenericMethod_HoverOnDemoScreenPops(xpath_advancecustomersearch_icon_hover_NA);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		xpath_GenericMethod_Click(xpath_mywork_icon_link);
+	}
+	
+	
 
 	public void sendAdvanceSearchCustomerNumber(String customernumber) throws Exception {
 		//waitFor(3);
 		try {
 			waitFor(2);
-			xpath_GenericMethod_Sendkeys(xpath_advacancecustomername_textbox, "");
+			xpath_GenericMethod_Sendkeys(xpath_advancecustomername_textbox, "");
 			waitFor(1);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		xpath_GenericMethod_Sendkeys(xpath_advancecustomernumber_textbox, customernumber);
+		
+	}
+	
+	public void sendAdvanceSearchCustomerSearchDetails(String customernumber,String customername,String countrycode,String city,String postalcode,String street,String salesorganization,String distributionchannel,String divsion) throws Exception{
+		
+		xpath_GenericMethod_Sendkeys(xpath_advancecustomernumber_textbox, customernumber);
+		xpath_GenericMethod_Sendkeys(xpath_advancecustomername_textbox, customername);
+		xpath_GenericMethod_Sendkeys(xpath_advancecustomercountrycode_textbox, countrycode);
+		xpath_GenericMethod_Sendkeys(xpath_advancecustomercity_textbox, city);
+		xpath_GenericMethod_Sendkeys(xpath_advancecustomerpostalcode_textbox, postalcode);
+		xpath_GenericMethod_Sendkeys(xpath_advancecustomerstreet_textbox, street);
+		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_advancecustomersalesorganization_textbox, salesorganization);
+		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_advancecustomerdistributionchannel_textbox, distributionchannel);
+		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_advancecustomerdivision_textbox, customernumber);
+		
 	}
 
 	public void clickOnAdvanceSearchButton() throws Exception {
@@ -771,17 +930,21 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 	}
 
 	public void clickOnEmailInformationTab() throws Exception {
-		xpath_GenericMethod_Click(xpath_caseidsearch_emailinformationtab);
+		try {
+			xpath_GenericMethod_Click(xpath_caseidsearch_emailinformationtab);
+		} catch (Exception e) {
+			xpath_GenericMethod_Click(xpath_caseidsearch_emailinformationtab);
+		}
 	}
 
 	public void verifyEmailSubjectForRE(String caseid) throws Exception {
-		if (xpath_Genericmethod_verifyElementPresent(xpath_replymail_subject)) {
+		//if (xpath_Genericmethod_verifyElementPresent(xpath_replymail_subject)) {
 			Assert.assertTrue(xpath_Genericmethod_verifyElementPresent(xpath_replymail_subject),
 					"Reply Mail attachment is not available for :" + caseid);
-		} else {
-			Assert.assertFalse(xpath_Genericmethod_verifyElementPresent(xpath_replymail_subject),
-					"Reply Mail attachment is available for :" + caseid);
-		}
+//		} else {
+//			Assert.assertFalse(xpath_Genericmethod_verifyElementPresent(xpath_replymail_subject),
+//					"Reply Mail attachment is available for :" + caseid);
+//		}
 	}
 
 	public void verifyCaseCanNotCreate(String message) throws Exception {
@@ -800,11 +963,12 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 	public void clickOnCaseIdLinkInMyCasesTab() throws Exception {
 		String stored_caseid = getCaseIdPreference();
 		System.out.println("Stored Case id is: " + stored_caseid);
+		waitFor(2);
 		for (int i = 1; i <= 20; i++) {
 			xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_MyWL_caseid, xpathend_MyWL_caseid, i);
 			break;
 		}
-		waitFor(1);
+		waitFor(2);
 	}
 
 	public void clickOnAssignToPreviousAssigneeButton() throws Exception {
@@ -827,24 +991,42 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 	}
 
 	public void selectnewAssigneeFromDropdown(String newassignee) throws Exception {
-
+		waitFor(2);
+		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_assigntotype_dd,assigntotypevalue);
+		waitFor(2);
 		xpath_GenericMethod_Sendkeys(xpath_newsassigneelist_dd, newassignee);
 
 		xpath_GenericMethod_Click(xpath_previousassignee_submit_btn);
 
 	}
+	
+	public void selectnewAssigneeFromDropdownNA(String newassignee) throws Exception {
+		waitFor(2);
+		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_assigntotype_dd,assigntotypevalue);
+		waitFor(2);
+		xpath_GenericMethod_Sendkeys(xpath_newsassigneelist_dd, newassignee);
+
+		xpath_GenericMethod_Click(xpath_previousassignee_submit_btn);
+
+	}
+	
+	
+	
+	
 
 	public void clickOnAssignToWBLink() throws Exception {
 		xpath_GenericMethod_Click(xpath_assign_to_workbasket_link);
 	}
 
 	public void clickOnWBTab() throws Exception {
+		waitFor(2);
 		xpath_GenericMethod_Click(xpath_workbasket_header);
 	}
 
 	public void clickOnViewQueueForDropdown(String workbasketname) throws Exception {
-		waitFor(1);
+		waitFor(2);
 		Reporter.log("WorkBasket name is: " + workbasketname);
+		waitFor(2);
 		xpath_GenericMethod_selectFromDropdownUsingVisibleTextbyclickingOnDropdown(xpath_viewqueuefor_dd,
 				workbasketname);
 	}
@@ -863,8 +1045,15 @@ public class GenericCasePage extends CustomerServ implements GenericCasePageLoc 
 		System.out.println("Stored Case id is: " + stored_caseid);
 		xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_MyFollowed_caseid, xpathend_MyFollowed_caseid,
 				2);
-
-	}
+//xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_mywb_caseid, xpathend_mywb_caseid,
+//			2);
+//		xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_mycases_caseid, xpathend_mycases_caseid,
+//				2);
+//	xpath_GenericMethod_ClickWBResultsRow(stored_caseid, xpathstart_namycases_caseid, xpathend_namycases_caseid,
+//			2);
+}
+	
+	
 
 	public void clickOnCaseStatusRemarksTab() throws Exception {
 		xpath_GenericMethod_Click(xpath_casestatusremarks_tab);	

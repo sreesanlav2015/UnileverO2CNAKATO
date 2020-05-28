@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.test</groupId>
@@ -67,11 +68,8 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-	<!-- 	<dependency>
-			<groupId>io.github.bonigarcia</groupId>
-			<artifactId>webdrivermanager</artifactId>
-			<version>3.6.1</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>io.github.bonigarcia</groupId> <artifactId>webdrivermanager</artifactId> 
+			<version>3.6.1</version> </dependency> -->
 
 
 
@@ -126,8 +124,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.17</version>
 				<configuration>
-
-					<!-- <testFailureIgnore>true</testFailureIgnore>  -->   <!-- Run from local Reports-Uncomment this if want to generate cucumber reports 
+					<argLine>-Xmx1024m</argLine> 
+					<testFailureIgnore>true</testFailureIgnore>    <!-- Run from local Reports-Uncomment this if want to generate cucumber reports 
 						in local -->
 
 					<suiteXmlFiles>
@@ -135,14 +133,12 @@
 							<suiteXmlFile>gridparalleltestng.xml</suiteXmlFile> <suiteXmlFile>${suiteXml}</suiteXmlFile> 
 							<suiteXmlFile>src/test/java/com/cucumber/framework/testng/testNG.xml</suiteXmlFile> -->
 
-						<suiteXmlFile>${suiteXml}</suiteXmlFile> <!-- Run from jenkins -->
-						<!-- <suiteXmlFile>testNGSequential.xml</suiteXmlFile> -->    <!-- Run from local -->
+						<!-- <suiteXmlFile>${suiteXml}</suiteXmlFile> --> <!-- Run from jenkins -->
+						<suiteXmlFile>testNGSequential.xml</suiteXmlFile>    <!-- Run from local -->
 					</suiteXmlFiles>
-					<systemPropertyVariables> 
-					<Browser>${browserName}</Browser> 
-					<URL>${url}</URL> 
-					</systemPropertyVariables>  <!-- System property part Runs from jenkins -->
-					<!-- <argLine>-Dcucumber.options="-tags @GC_Kato_TC1"</argLine>  -->  <!-- Run from local for single scenario execution original syntax is -Dcucumber.options=" 
+					<!-- <systemPropertyVariables> <Browser>${browserName}</Browser> <URL>${url}</URL> 
+						</systemPropertyVariables> System property part Runs from jenkins -->
+					<argLine>-Dcucumber.options="--tags @GC_NA_TC12"</argLine>  <!-- Run from local for single scenario execution original syntax is -Dcucumber.options=" 
 						two hyphens tags @Test3,@Test1" -->
 				</configuration>
 			</plugin>
@@ -150,7 +146,7 @@
 			<plugin>
 				<groupId>net.masterthought</groupId>
 				<artifactId>maven-cucumber-reporting</artifactId>
-				<version>3.8.0</version>
+				<version>3.15.0</version>
 				<executions>
 					<execution>
 						<id>execution</id>
@@ -164,7 +160,7 @@
 							<cucumberOutput>${project.build.directory}/cucumber-report/cucumber.json</cucumberOutput>
 
 
-							<!-- <checkBuildResult>true</checkBuildResult>  -->  <!-- Run from local to generate Reports-uncomment this only when to generate 
+							<checkBuildResult>true</checkBuildResult>   <!-- Run from local to generate Reports-uncomment this only when to generate 
 								cucumber reports even they are failures making build as success -->
 							<!-- <buildNumber>1</buildNumber> -->
 						</configuration>

@@ -95,10 +95,16 @@ public class GenericCaseTest {
 		genericcasepage.selectSalesOrgAndDistChannelAndDivision(salesorg, distchannel, division);
 	}
 
-	@Given("Click on Save button")
-	public void click_on_Save_button() throws Exception {
-		genericcasepage.clickOnSaveButton();
+	@Given("Click on Save button kato")
+	public void click_on_Save_button_kato() throws Exception {
+		genericcasepage.clickOnSaveButtonKato();
 	}
+	
+	@Given("Click on Save button NA")
+	public void click_on_Save_button_NA() throws Exception {
+		genericcasepage.clickOnSaveButtonNA();
+	}
+	
 
 	@Then("Verify the Generic case is created")
 	public void Verify_the_Generic_case_is_created() throws Exception {
@@ -186,6 +192,7 @@ public class GenericCaseTest {
 	public void click_on_filter_icon_on_caseid_column() throws Exception {
 		genericcasepage.clickOnFilterIconOnCaseIDColumn();
 	}
+	
 	@Then("Enter Case id into the case text textbox")
 	public void enter_case_id_into_the_case_text_textbox() throws Exception {
 		genericcasepage.enterCaseIDIntoTextBox();
@@ -198,6 +205,87 @@ public class GenericCaseTest {
 	public void verify_the_case_id() throws Exception {
 		genericcasepage.verifyCaseId();
 	}
+	
+	@Given("Click on Filter Icon on CaseID column in followed cases")
+	public void click_on_Filter_Icon_on_CaseID_column_in_followed_cases() throws Exception {
+		genericcasepage.clickOnFilterIconOnCaseIDColumInFollowedcases();
+	}
+
+	@Given("Enter Case id into the case text textbox in followedcases")
+	public void enter_Case_id_into_the_case_text_textbox_in_followedcases() throws Exception{
+		genericcasepage.enterCaseIDIntoTextBoxInFollowedCases();
+	}
+
+	@Given("Verify the case id in followed cases")
+	public void verify_the_case_id_in_followed_cases() throws Exception {
+	   genericcasepage.verifyCaseIdInFollowedCases();
+	}
+	
+	@Given("Click on Filter Icon on CaseID column in mycases")
+	public void click_on_Filter_Icon_on_CaseID_column_in_my_cases() throws Exception {
+		genericcasepage.clickOnFilterIconOnCaseIDColumInMyCases();
+	}
+
+	@Given("Enter Case id into the case text textbox in mycases")
+	public void enter_Case_id_into_the_case_text_textbox_in_mycases() throws Exception{
+		genericcasepage.enterCaseIDIntoTextBoxInMyCases();
+	}
+
+	@Given("Verify the case id in mycases")
+	public void verify_the_case_id_in_mycases() throws Exception {
+	   genericcasepage.verifyCaseIdInMyCases();
+	}
+	
+	@Given("Click on Filter Icon on CaseID column in workbasket cases")
+	public void click_on_Filter_Icon_on_CaseID_column_in_workbasket_cases() throws Exception {
+		genericcasepage.clickOnFilterIconOnCaseIDColumInWorbasketCases();
+	}
+
+	@Given("Enter Case id into the case text textbox in workbasket cases")
+	public void enter_Case_id_into_the_case_text_textbox_in_workbasket_cases() throws Exception{
+		genericcasepage.enterCaseIDIntoTextBoxInWorkbasketCases();
+	}
+
+	@Given("Verify the case id in workbasket cases")
+	public void verify_the_case_id_in_workbasket_cases() throws Exception {
+	   genericcasepage.verifyCaseIdInWorkbasketCases();
+	}
+	
+	
+	@Given("Click on Filter Icon on CaseID column in workbasket cases NA")
+	public void click_on_Filter_Icon_on_CaseID_column_in_workbasket_cases_NA() throws Exception {
+		genericcasepage.clickOnFilterIconOnCaseIdColumnInWorkbasketCasesNA();
+	}
+
+	@Given("Enter Case id into the case text textbox in workbasket cases NA")
+	public void enter_Case_id_into_the_case_text_textbox_in_workbasket_cases_NA() throws Exception {
+		genericcasepage.enterCaseIdIntoTheCaseTextTextboxInWorkbasketCasesNA();
+	}
+
+	@Given("Verify the case id in workbasket cases NA")
+	public void verify_the_case_id_in_workbasket_cases_NA() throws Exception {
+		genericcasepage.verifyTheCaseIdInWorkbasketCasesNA();
+	}
+	
+	
+	@Given("Click on Filter Icon on CaseID column in mycases NA")
+	public void click_on_Filter_Icon_on_CaseID_column_in_mycases_NA() throws Exception {
+	   genericcasepage.clickOnFilterIconOnCaseIDColumnInMyCasesNA();
+	}
+
+	@Given("Enter Case id into the case text textbox in mycases NA")
+	public void enter_Case_id_into_the_case_text_textbox_in_mycases_NA() throws Exception {
+	    genericcasepage.enterCaseIdIntoTheCaseTextTextboxInMyCasesNA();
+	}
+
+	@Given("Verify the case id in mycases NA")
+	public void verify_the_case_id_in_mycases_NA() throws Exception {
+	   genericcasepage.verifyTheCaseIdInMyCasesNA();
+	}
+	
+	
+	
+	
 
 	/* Advance search Generic Case Creation */
 	
@@ -211,9 +299,23 @@ public class GenericCaseTest {
 	public void click_on_my_work_icon_in_Advance_search_screen() throws Exception {
 		genericcasepage.clickOnMyWorkIcon();
 	}
+	
+
+@Given("Click on my work icon in Advance search screen NA")
+public void click_on_my_work_icon_in_Advance_search_screen_NA() throws Exception {
+		genericcasepage.clickOnMyWorkIconNA();
+}
+	
 	@When("Enter {string} into customer number field in Advance search screen")
 	public void enter_into_customer_number_field_in_Advance_search_screen(String customernumber) throws Exception {
 		genericcasepage.sendAdvanceSearchCustomerNumber(customernumber);
+	}
+	
+	
+	@Given("Enter customer number {string} and customer name {string} and country code {string} and city {string} and Postal code {string} and street {string} and sales organization {string} and Distribution Channel {string} and Division {string} into customer number field in the Advance search screen")
+	//public void enter_customer_number_and_customer_name_and_country_code_and_city_and_Postal_code_and_street_and_sales_organization_and_Distribution_Channel_and_Division_into_customer_number_field_in_Advance_search_screen(String customernumber, String customername, String countrycode, String city, String postalcode, String street, String salesorganization, String distributionchannel, String divsion) throws Exception {
+		public void enter_customer_number_and_customer_name_and_country_code_and_city_and_Postal_code_and_street_and_sales_organization_and_Distribution_Channel_and_Division_into_customer_number_field_in_the_Advance_search_screen(String customernumber, String customername, String countrycode, String city, String postalcode, String street, String salesorganization, String distributionchannel, String divsion) throws Exception {
+		genericcasepage.sendAdvanceSearchCustomerSearchDetails(customernumber,customername,countrycode,city,postalcode,street,salesorganization,distributionchannel,divsion);
 	}
 
 	@When("Click on Search button in Advance search screen")
@@ -381,6 +483,12 @@ public class GenericCaseTest {
 	public void select_the_new_assignee_and_click_on_submit(String newassignee) throws Exception {
 		genericcasepage.selectnewAssigneeFromDropdown(newassignee);
 	}
+	@Then("Select the New Assignee {string} and click on submit NA")
+	public void select_the_new_assignee_and_click_on_submit_NA(String newassignee) throws Exception {
+		genericcasepage.selectnewAssigneeFromDropdownNA(newassignee);
+	}
+	
+	
 	
 	@Then("Click on Assign To Workbasket link")
 	public void click_on_assign_to_workbasket_link() throws Exception {
@@ -392,9 +500,9 @@ public class GenericCaseTest {
 		genericcasepage.sendGenericCaseObject(genericcasepage);
 		genericcasepage.clickOnWBTab();
 	}
-	@Then("Select workbasket {string} from view Queue for dropdown and click on case id")
+	@Then("Select workbasket {string} from view Queue for dropdown")
 	public void select_workbasket_from_view_queue_for_dropdown_and_click_on_case_id(String workbasketname) throws Exception {
 		genericcasepage.clickOnViewQueueForDropdown(workbasketname);
-		genericcasepage.clickOnCaseIdLinkInMyWB_ViewQueueForResultsTab();
+		//genericcasepage.clickOnCaseIdLinkInMyWB_ViewQueueForResultsTab();
 	}
 }

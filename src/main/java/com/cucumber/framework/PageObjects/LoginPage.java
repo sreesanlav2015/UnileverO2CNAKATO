@@ -77,8 +77,8 @@ public class LoginPage extends CustomerServ implements LoginPageLoc {
 		Assert.assertTrue(verifyTextLogin.equalsIgnoreCase("O2CKatowice"),
 				"Login is not successful");
 		Reporter.log("Login is Successful for the region: "+verifyTextLogin);
-        }else if(verifyTextLogin.equalsIgnoreCase("UnileverO2CNorthAmerica")) {
-        	Assert.assertTrue(verifyTextLogin.equalsIgnoreCase("UnileverO2CNorthAmerica"),
+        }else if(verifyTextLogin.equalsIgnoreCase("Unilever O2C NA Wave 2.5")) {
+        	Assert.assertTrue(verifyTextLogin.equalsIgnoreCase("Unilever O2C NA Wave 2.5"),
     				"Login is not successful");
         	Reporter.log("Login is Successful for the region: "+verifyTextLogin);
         }else {
